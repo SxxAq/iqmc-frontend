@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { FileText, X } from "lucide-react";
 
 const QuoteRequest = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,51 +11,86 @@ const QuoteRequest = () => {
     service: "",
     message: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const translations = {
     en: {
-      title: "Request a Quote",
-      name: "Name",
-      email: "Email",
-      service: "Service",
-      message: "Message",
-      submit: "Submit Request",
+      title: "Request a Consultation",
+      name: "Full Name",
+      email: "Email Address",
+      service: "Service Interest",
+      message: "Additional Details",
+      submit: "Request Consultation",
+      success: "Thank you! We'll contact you soon.",
     },
     es: {
-      title: "Solicitar Presupuesto",
-      name: "Nombre",
-      email: "Correo electrónico",
-      service: "Servicio",
-      message: "Mensaje",
-      submit: "Enviar Solicitud",
+      title: "Solicitar Consulta",
+      name: "Nombre Completo",
+      email: "Correo Electrónico",
+      service: "Servicio de Interés",
+      message: "Detalles Adicionales",
+      submit: "Solicitar Consulta",
+      success: "¡Gracias! Nos pondremos en contacto pronto.",
     },
     fr: {
-      title: "Demander un Devis",
-      name: "Nom",
-      email: "Email",
-      service: "Service",
-      message: "Message",
-      submit: "Envoyer la Demande",
+      title: "Demander une Consultation",
+      name: "Nom Complet",
+      email: "Adresse E-mail",
+      service: "Service Intéressé",
+      message: "Détails Supplémentaires",
+      submit: "Demander Consultation",
+      success: "Merci ! Nous vous contacterons bientôt.",
     },
     de: {
-      title: "Angebot Anfordern",
-      name: "Name",
-      email: "E-Mail",
-      service: "Dienstleistung",
-      message: "Nachricht",
-      submit: "Anfrage Senden",
+      title: "Beratung Anfordern",
+      name: "Vollständiger Name",
+      email: "E-Mail-Adresse",
+      service: "Interessengebiet",
+      message: "Zusätzliche Details",
+      submit: "Beratung Anfordern",
+      success: "Vielen Dank! Wir melden uns bald.",
     },
     hi: {
-      title: "कोटेशन का अनुरोध करें",
-      name: "नाम",
-      email: "ईमेल",
-      service: "सेवा",
-      message: "संदेश",
-      submit: "अनुरोध भेजें",
+      title: "परामर्श का अनुरोध करें",
+      name: "पूरा नाम",
+      email: "ईमेल पता",
+      service: "सेवा रुचि",
+      message: "अतिरिक्त विवरण",
+      submit: "परामर्श अनुरोध करें",
+      success: "धन्यवाद! हम जल्द ही संपर्क करेंगे।",
     },
   };
 
+  const services = {
+    en: [
+      { value: "certification", label: "Certification Services" },
+      { value: "inspection", label: "Professional Inspection" },
+      { value: "training", label: "Expert Training Programs" },
+    ],
+    es: [
+      { value: "certification", label: "Servicios de Certificación" },
+      { value: "inspection", label: "Inspección Profesional" },
+      { value: "training", label: "Programas de Capacitación" },
+    ],
+    fr: [
+      { value: "certification", label: "Services de Certification" },
+      { value: "inspection", label: "Inspection Professionnelle" },
+      { value: "training", label: "Programmes de Formation" },
+    ],
+    de: [
+      { value: "certification", label: "Zertifizierungsservices" },
+      { value: "inspection", label: "Professionelle Inspektion" },
+      { value: "training", label: "Schulungsprogramme" },
+    ],
+    hi: [
+      { value: "certification", label: "प्रमाणपत्र सेवाएं" },
+      { value: "inspection", label: "पेशेवर निरीक्षण" },
+      { value: "training", label: "विशेषज्ञ प्रशिक्षण कार्यक्रम" },
+    ],
+  };
+
   const t = translations[language];
+  const availableServices = services[language];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,144 +99,138 @@ const QuoteRequest = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to your server
+    // Simulate form submission
     console.log("Form submitted:", formData);
-    // Reset form and close
-    setFormData({
-      name: "",
-      email: "",
-      service: "",
-      message: "",
-    });
-    setIsOpen(false);
+    setSubmitted(true);
+
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({
+        name: "",
+        email: "",
+        service: "",
+        message: "",
+      });
+      setIsOpen(false);
+    }, 3000);
   };
 
   return (
-    <div className="fixed bottom-4 left-4 z-50">
+    <div className="fixed bottom-6 left-6 z-50">
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-green-600 text-white rounded-full p-4 shadow-lg hover:bg-green-700 transition-colors"
+          className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full p-4 shadow-xl hover:scale-105 transition-all duration-300 ease-in-out"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-            />
-          </svg>
+          <FileText className="w-7 h-7" />
         </button>
       )}
+
       {isOpen && (
-        <div className="bg-white rounded-lg shadow-xl w-96 p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-bold">{t.title}</h3>
+        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 w-[450px] animate-fadeIn">
+          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-t-2xl flex justify-between items-center">
+            <h3 className="font-semibold text-lg">{t.title}</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-white hover:rotate-90 transition-transform"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <X className="w-6 h-6" />
             </button>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                {t.name}
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
+
+          {submitted ? (
+            <div className="p-6 text-center">
+              <div className="text-green-600 text-2xl mb-4">✓</div>
+              <p className="text-gray-700">{t.success}</p>
             </div>
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+          ) : (
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  {t.name}
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  {t.email}
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="service"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  {t.service}
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  value={formData.service}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
+                >
+                  <option value="">{t.service}</option>
+                  {availableServices.map((service) => (
+                    <option key={service.value} value={service.value}>
+                      {service.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  {t.message}
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-all"
               >
-                {t.email}
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="service"
-                className="block text-sm font-medium text-gray-700"
-              >
-                {t.service}
-              </label>
-              <select
-                id="service"
-                name="service"
-                value={formData.service}
-                onChange={handleInputChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="">Select a service</option>
-                <option value="certification">Certification</option>
-                <option value="inspection">Inspection</option>
-                <option value="training">Training</option>
-              </select>
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-700"
-              >
-                {t.message}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                rows={4}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              {t.submit}
-            </button>
-          </form>
+                {t.submit}
+              </button>
+            </form>
+          )}
         </div>
       )}
     </div>

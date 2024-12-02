@@ -1,53 +1,105 @@
-import { useLanguage } from "../contexts/LanguageContext";
+import React from "react";
+import Hero from "../components/Hero";
+import Testimonial from "../components/Testimonial";
 
-const Home = () => {
-  const { language } = useLanguage();
-
-  const translations = {
-    en: {
-      welcome: "Welcome to IQMC Global",
-      description:
-        "Your trusted partner for quality management and certification services.",
-      learnMore: "Learn More",
-    },
-    es: {
-      welcome: "Bienvenido a IQMC Global",
-      description:
-        "Su socio de confianza para servicios de gestión de calidad y certificación.",
-      learnMore: "Más Información",
-    },
-    fr: {
-      welcome: "Bienvenue chez IQMC Global",
-      description:
-        "Votre partenaire de confiance pour les services de gestion de la qualité et de certification.",
-      learnMore: "En Savoir Plus",
-    },
-    de: {
-      welcome: "Willkommen bei IQMC Global",
-      description:
-        "Ihr vertrauenswürdiger Partner für Qualitätsmanagement und Zertifizierungsdienste.",
-      learnMore: "Mehr Erfahren",
-    },
-    hi: {
-      welcome: "IQMC Global में आपका स्वागत है",
-      description:
-        "गुणवत्ता प्रबंधन और प्रमाणीकरण सेवाओं के लिए आपका विश्वसनीय साझेदार।",
-      learnMore: "और जानें",
-    },
-  };
-
-  const t = translations[language];
-
+const Home: React.FC = () => {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-6">{t.welcome}</h1>
-      <p className="text-xl mb-8">{t.description}</p>
-      <a
-        href="/services"
-        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors"
-      >
-        {t.learnMore}
-      </a>
+    <div>
+      <Hero
+        title="IQMC Global Assessment"
+        subtitle="Ensuring Ethical Practices and Fair Labor Standards"
+        backgroundImage="/hero-bg.jpg"
+        breadcrumbs={[{ name: "Home", href: "/" }]}
+      />
+
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-4">
+                Welcome to IQMC Global Assessment
+              </h2>
+              <p className="text-gray-600 mb-4">
+                IQMC Global Assessment is a leading provider of social
+                compliance auditing services. We are committed to promoting
+                ethical practices and ensuring fair treatment of workers across
+                various industries.
+              </p>
+              <p className="text-gray-600 mb-4">
+                Our team of experienced professionals conducts thorough and
+                impartial audits to help businesses create safe and fair working
+                environments for their employees.
+              </p>
+              <a
+                href="/about-us"
+                className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition duration-300"
+              >
+                Learn More About Us
+              </a>
+            </div>
+            <div>
+              <img
+                src="/about-image.jpg"
+                alt="IQMC Global Assessment Team"
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gray-100 py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">Our Services</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-4">C-TPAT Audits</h3>
+              <p className="text-gray-600">
+                We provide comprehensive C-TPAT (Customs-Trade Partnership
+                Against Terrorism) audits to ensure supply chain security.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-4">
+                Code of Conduct Audits
+              </h3>
+              <p className="text-gray-600">
+                Our team conducts thorough audits to verify compliance with
+                ethical standards and codes of conduct.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-4">
+                Social Compliance Audits
+              </h3>
+              <p className="text-gray-600">
+                We assess and report on companies' adherence to social
+                responsibility and labor standards.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Testimonial />
+
+      <section className="py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Ensure Compliance?
+          </h2>
+          <p className="text-gray-600 mb-8">
+            Contact us today to learn how we can help your organization maintain
+            ethical standards and fair labor practices.
+          </p>
+          <a
+            href="/contact-us"
+            className="bg-red-600 text-white px-8 py-3 rounded-md hover:bg-red-700 transition duration-300 text-lg font-semibold"
+          >
+            Get Started
+          </a>
+        </div>
+      </section>
     </div>
   );
 };

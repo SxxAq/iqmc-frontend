@@ -4,15 +4,14 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
-import IndustryDetail from "./pages/IndustryDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
-import BlogPostDetail from "./pages/BlogPostDetail";
+import OurPolicies from "./pages/OurPolicies.tsx";
 import LanguageProvider from "./contexts/LanguageContext";
 import ChatBox from "./components/ChatBox";
 import QuoteRequest from "./components/QuoteRequest";
-
+import News from "./pages/News.tsx";
+import BusinessIntegrity from "./pages/BusinessIntegrity.tsx";
 function App() {
   return (
     <LanguageProvider>
@@ -24,11 +23,14 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
-              <Route path="/industries/:slug" element={<IndustryDetail />} />
               <Route path="/about" element={<About />} />
+              <Route
+                path="/business-integrity"
+                element={<BusinessIntegrity />}
+              />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPostDetail />} />
+              <Route path="/policies" element={<OurPolicies />} />
+              <Route path="/news" element={<News />} />
             </Routes>
           </main>
           <Footer />

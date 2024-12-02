@@ -1,122 +1,147 @@
 import { Link } from "react-router-dom";
-
-export default function About() {
+import Testimonial from "../components/Testimonial.tsx";
+const AboutUs = () => {
   return (
-    <div className="bg-white">
-      <div className="relative isolate overflow-hidden bg-gradient-to-b from-yellow-100/20">
-        <div className="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
-          <div className="px-6 lg:px-0 lg:pt-4">
-            <div className="mx-auto max-w-2xl">
-              <div className="max-w-lg">
-                <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  About IQMC India
-                </h1>
-                <p className="mt-6 text-xl leading-8 text-gray-600">
-                  IQMC India is a leading provider of quality management and
-                  certification services, dedicated to helping businesses
-                  achieve excellence and compliance across various industries.
-                </p>
-                <div className="mt-10 flex items-center gap-x-6">
-                  <Link
-                    to="/contact"
-                    className="rounded-md bg-yellow-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
-                  >
-                    Contact Us
-                  </Link>
-                  <Link
-                    to="/services"
-                    className="text-sm font-semibold leading-6 text-gray-900"
-                  >
-                    Learn more about our services{" "}
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
-            <div
-              className="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-yellow-600/10 ring-1 ring-yellow-50 md:-mr-20 lg:-mr-36"
-              aria-hidden="true"
-            />
-            <div className="shadow-lg md:rounded-3xl">
-              <div className="bg-yellow-500 [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
-                <div
-                  className="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] bg-yellow-100 opacity-20 ring-1 ring-inset ring-white md:ml-20 lg:ml-36"
-                  aria-hidden="true"
-                />
-                <div className="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
-                  <div className="mx-auto max-w-2xl md:mx-0 md:max-w-none">
-                    <div className="w-screen overflow-hidden rounded-tl-xl bg-gray-900">
-                      <div className="flex bg-gray-800/40 ring-1 ring-white/5">
-                        <div className="-mb-px flex text-sm font-medium leading-6 text-gray-400">
-                          <div className="border-b border-r border-b-white/20 border-r-white/10 bg-white/5 px-4 py-2 text-white">
-                            Our Mission
-                          </div>
-                          <div className="border-r border-gray-600/10 px-4 py-2">
-                            Our Vision
-                          </div>
-                        </div>
-                      </div>
-                      <div className="px-6 pb-14 pt-6">
-                        <p className="text-base leading-7 text-gray-300">
-                          To provide world-class quality management and
-                          certification services that help businesses achieve
-                          excellence and sustainability.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <div className="relative bg-gray-900 text-white py-20">
+        <div
+          className="absolute inset-0 bg-cover bg-center z-0 opacity-30"
+          style={{ backgroundImage: 'url("/about-header-default.jpg")' }}
+        />
+        <div className="container mx-auto px-4 relative z-10">
+          <h1 className="text-4xl font-bold text-center mb-4">About Us</h1>
+          <div className="flex justify-center gap-2 text-sm">
+            <Link to="/" className="hover:text-red-500">
+              HOME
+            </Link>
+            <span>/</span>
+            <span>ABOUT US</span>
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
-        <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-yellow-600">
-            Our Values
+
+      {/* Welcome Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold">
+                Welcome to IQMC INDIA Certification Pvt Ltd & IQMC Global
+                Assessment
+              </h2>
+              <p className="text-gray-600">
+                IQMC INDIA Certification Pvt Ltd was founded in 2010 and has
+                become a trusted provider of integrated and professionally
+                managed training, development, service of training & development
+                on management and social auditing and ISO services. The company
+                was established with a mission to pioneer the field of
+                certification and inspection, bringing new values of integrity
+                and ethics.
+              </p>
+              <p className="text-gray-600">
+                Over the years, IQMC INDIA, IQMC Global Assessment has built a
+                successful global business based on its long-standing reputation
+                and expertise in providing high-quality auditing, training,
+                inspection, and certification services.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <img
+                src="/project-detail-img-2.jpg"
+                alt="Team collaboration"
+                className="rounded-lg shadow-lg"
+              />
+              <img
+                src="/about-5.jpg"
+                alt="Professional meeting"
+                className="rounded-lg shadow-lg mt-8"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Help Section */}
+      <section className="bg-gray-900 text-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-red-500 mb-4">Need Some Help?</h3>
+          <h2 className="text-3xl font-bold mb-8">
+            We are committed to upholding the most rigorous standards in social
+            compliance auditing.
           </h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Guiding Principles That Define Us
+          <p className="max-w-3xl mx-auto mb-8">
+            Our experienced team ensures that your business meets global ethical
+            and regulatory requirements, fostering transparency, accountability,
+            and trust. With us, you gain the confidence to navigate complex
+            compliance challenges and maintain the integrity of your operations.
           </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            At IQMC India, our core values shape every aspect of our work and
-            relationships with clients.
-          </p>
-        </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {[
-              {
-                name: "Integrity",
-                description:
-                  "We uphold the highest standards of ethical conduct in all our operations.",
-              },
-              {
-                name: "Excellence",
-                description:
-                  "We strive for excellence in every service we provide to our clients.",
-              },
-              {
-                name: "Innovation",
-                description:
-                  "We continuously innovate to meet evolving industry needs and challenges.",
-              },
-            ].map((value) => (
-              <div key={value.name} className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  {value.name}
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <p className="flex-auto">{value.description}</p>
-                </dd>
+          <div className="flex justify-center gap-6">
+            <a
+              href="tel:+919339337237"
+              className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-md inline-flex items-center gap-2"
+            >
+              CALL US
+            </a>
+            <div className="flex items-center gap-2">
+              <span className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
+                📞
+              </span>
+              <div className="text-left">
+                <p className="text-sm">Contact</p>
+                <p>info@iqmcindia.com</p>
               </div>
-            ))}
-          </dl>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h3 className="text-red-500 text-center mb-4">Dedicated Team</h3>
+          <h2 className="text-3xl font-bold text-center mb-8">
+            Professional Individuals
+          </h2>
+          <p className="text-gray-600 max-w-4xl mx-auto text-center">
+            The company has a team of experienced auditors who are qualified to
+            conduct various types of social compliance and management system
+            audits, including Sedex, BSCI, WRAP, SA8000, SLCP and ISO. IQMC
+            Global Assessment mission is to empower supply chains to achieve and
+            maintain the highest standards of social responsibility across their
+            operations. The company approaches each audit with meticulous
+            attention to detail, integrity, and impartiality, striving to
+            provide accurate assessments and actionable insights to drive
+            meaningful progress.
+          </p>
+        </div>
+      </section>
+      <Testimonial />
+
+      {/* Customer Experience Section */}
+      {/* <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <h3 className="text-red-500 text-center mb-4">Our Clients</h3>
+          <h2 className="text-3xl font-bold text-center mb-8">
+            Customers Experience
+          </h2>
+          <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <p className="text-gray-600 italic mb-4">
+              I am honored to extend a warm welcome to you on behalf of our team
+              at IQMC INDIA Certification Pvt Ltd & IQMC Global Assessment. As
+              the Managing Director of our social compliance auditing firm, I am
+              proud of the work we do to promote ethical practices and uphold
+              labor standards in the global supply chain.
+            </p>
+            <div className="text-center">
+              <p className="font-bold">Sandeep Tomar</p>
+              <p className="text-gray-500">Managing Director</p>
+            </div>
+          </div>
+        </div>
+      </section> */}
     </div>
   );
-}
+};
+
+export default AboutUs;
