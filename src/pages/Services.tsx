@@ -1,4 +1,6 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Hero from "../components/Hero";
 
 const services = [
@@ -52,47 +54,72 @@ const Services: React.FC = () => {
         ]}
       />
 
-      <section className="py-16">
+      <section className="py-24 bg-gradient-to-b from-gray-100 to-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">
+          <motion.h2
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl font-bold text-center mb-8"
+          >
             Comprehensive Auditing Services
-          </h2>
-          <p className="text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-gray-600 text-center mb-16 max-w-3xl mx-auto text-lg"
+          >
             At IQMC Global Assessment, we offer a wide range of auditing
             services to help businesses ensure compliance, maintain ethical
             standards, and promote fair labor practices. Our experienced team is
             dedicated to providing thorough and impartial assessments across
             various industries.
-          </p>
+          </motion.p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
-              </div>
+              <motion.div
+                key={index}
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4 + index * 0.1 }}
+                className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="text-5xl mb-6">{service.icon}</div>
+                <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {service.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-100 py-16">
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="bg-gray-900 text-white py-24"
+      >
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="text-4xl font-bold mb-8">
             Ready to Ensure Compliance?
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-xl mb-12 max-w-2xl mx-auto">
             Contact us today to learn how we can help your organization maintain
             ethical standards and fair labor practices.
           </p>
-          <a
+          <motion.a
             href="/contact-us"
-            className="bg-red-600 text-white px-8 py-3 rounded-md hover:bg-red-700 transition duration-300 text-lg font-semibold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center bg-red-600 text-white px-8 py-3 rounded-md hover:bg-red-700 transition duration-300 text-lg font-semibold"
           >
-            Get Started
-          </a>
+            Get Started <ArrowRight className="ml-2 w-5 h-5" />
+          </motion.a>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface SlideContent {
@@ -12,7 +13,7 @@ interface SlideContent {
 
 const slides: SlideContent[] = [
   {
-    title: "C-TAPT, COC",
+    title: "C-TPAT, COC",
     subtitle: "Social Compliance Auditing",
     description:
       "Ethical Auditing and System Certifications for your business success",
@@ -29,84 +30,109 @@ const slides: SlideContent[] = [
     ctaText: "Our Services",
     ctaLink: "/services",
   },
-  //{
-  //  title: "Global Standards",
-  //  subtitle: "Local Excellence",
-  //  description:
-  //    "Ensuring compliance and maintaining ethical standards across industries worldwide",
-  //  image: "/hero-slide-3.jpg",
-  //  ctaText: "Learn More",
-  //  ctaLink: "/about",
-  //},
 ];
 
-const HeroSlider = () => {
+const HeroSlider: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
     }, 5000);
 
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+    return () => clearInterval(timer);
+  }, []);
 
   const handlePrevSlide = () => {
-    setIsAutoPlaying(false);
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setDirection(-1);
+    setCurrentSlide(
+      (prevSlide) => (prevSlide - 1 + slides.length) % slides.length,
+    );
   };
 
   const handleNextSlide = () => {
-    setIsAutoPlaying(false);
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setDirection(1);
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+  };
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
   };
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
+      <AnimatePresence initial={false} custom={direction}>
+        <motion.div
+          key={currentSlide}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ type: "tween", duration: 0.5 }}
+          className="absolute inset-0"
         >
-          {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${slide.image})` }}
+            style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
           >
-            <div className="absolute inset-0 bg-black/1" />
+            <div className="absolute inset-0 bg-black opacity-50" />
           </div>
-
-          {/* Content */}
           <div className="relative h-full flex items-center">
             <div className="container mx-auto px-4">
               <div className="max-w-3xl">
-                <h2 className="text-sm md:text-base text-red-500 font-semibold mb-4 animate-fadeIn">
-                  {slide.subtitle}
-                </h2>
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-slideUp">
-                  {slide.title}
-                </h1>
-                <p className="text-lg md:text-xl text-gray-200 mb-8 animate-slideUp delay-200">
-                  {slide.description}
-                </p>
-                <a
-                  href={slide.ctaLink}
-                  className="inline-block bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-md transition duration-300 animate-slideUp delay-400"
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-sm md:text-base text-red-500 font-semibold mb-4"
                 >
-                  {slide.ctaText}
-                </a>
+                  {slides[currentSlide].subtitle}
+                </motion.h2>
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-4xl md:text-6xl font-bold text-white mb-6"
+                >
+                  {slides[currentSlide].title}
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-lg md:text-xl text-gray-200 mb-8"
+                >
+                  {slides[currentSlide].description}
+                </motion.p>
+                <motion.a
+                  href={slides[currentSlide].ctaLink}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="inline-block bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-md transition duration-300"
+                >
+                  {slides[currentSlide].ctaText}
+                </motion.a>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        </motion.div>
+      </AnimatePresence>
 
-      {/* Navigation Arrows */}
       <div className="absolute inset-0 flex items-center justify-between p-4">
         <button
           onClick={handlePrevSlide}
@@ -124,16 +150,12 @@ const HeroSlider = () => {
         </button>
       </div>
 
-      {/* Slide Indicators */}
       <div className="absolute bottom-8 left-0 right-0">
         <div className="flex justify-center gap-2">
           {slides.map((_, index) => (
             <button
               key={index}
-              onClick={() => {
-                setIsAutoPlaying(false);
-                setCurrentSlide(index);
-              }}
+              onClick={() => setCurrentSlide(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentSlide
                   ? "bg-red-600 w-8"
