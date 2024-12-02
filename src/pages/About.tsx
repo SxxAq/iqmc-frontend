@@ -65,7 +65,7 @@ const AboutUs = () => {
       {/* Help Section */}
       <section className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-red-500 mb-4">Need Some Help?</h3>
+          <h3 className="text-red-500 font-medium mb-4">Need Some Help?</h3>
           <h2 className="text-3xl font-bold mb-8">
             We are committed to upholding the most rigorous standards in social
             compliance auditing.
@@ -84,7 +84,7 @@ const AboutUs = () => {
               CALL US
             </a>
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
+              <span className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center">
                 📞
               </span>
               <div className="text-left">

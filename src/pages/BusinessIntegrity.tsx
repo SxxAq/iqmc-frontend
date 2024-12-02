@@ -6,7 +6,7 @@ const BusinessIntegrity: React.FC = () => {
         <div className="relative bg-gray-900 text-white py-20">
           <div
             className="absolute inset-0 bg-cover bg-center z-0 opacity-30"
-            style={{ backgroundImage: 'url("/business-banner.jpg")' }}
+            style={{ backgroundImage: 'url("/bussness-banner.jpg")' }}
           />
           <div className="container mx-auto px-4 relative z-10">
             <h1 className="text-4xl font-bold text-center mb-4">

@@ -1,10 +1,13 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchServiceBySlug } from "../services/api";
 
 const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  if (!slug) {
+    return <div>Service not found</div>;
+  }
+
   const {
     data: service,
     isLoading,
@@ -13,12 +16,14 @@ const ServiceDetail = () => {
 
   if (isLoading)
     return <div className="container mx-auto px-4 py-8">Loading...</div>;
-  if (error)
+
+  if (error instanceof Error)
     return (
       <div className="container mx-auto px-4 py-8">
         An error occurred: {error.message}
       </div>
     );
+
   if (!service)
     return <div className="container mx-auto px-4 py-8">Service not found</div>;
 

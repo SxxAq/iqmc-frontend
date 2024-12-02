@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { FileText, X } from "lucide-react";
 
@@ -13,7 +13,18 @@ const QuoteRequest = () => {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const translations = {
+  const translations: Record<
+    string,
+    {
+      title: string;
+      name: string;
+      email: string;
+      service: string;
+      message: string;
+      submit: string;
+      success: string;
+    }
+  > = {
     en: {
       title: "Request a Consultation",
       name: "Full Name",
@@ -61,7 +72,7 @@ const QuoteRequest = () => {
     },
   };
 
-  const services = {
+  const services: Record<string, { value: string; label: string }[]> = {
     en: [
       { value: "certification", label: "Certification Services" },
       { value: "inspection", label: "Professional Inspection" },
@@ -89,15 +100,19 @@ const QuoteRequest = () => {
     ],
   };
 
-  const t = translations[language];
-  const availableServices = services[language];
+  const t = translations[language] || translations.en;
+  const availableServices = services[language] || services.en;
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate form submission
     console.log("Form submitted:", formData);
@@ -128,108 +143,69 @@ const QuoteRequest = () => {
       )}
 
       {isOpen && (
-        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 w-[450px] animate-fadeIn">
+        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 max-w-full w-[90vw] sm:w-[450px] animate-fadeIn">
           <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-t-2xl flex justify-between items-center">
-            <h3 className="font-semibold text-lg">{t.title}</h3>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:rotate-90 transition-transform"
-            >
+            <h3 className="text-xl">{t.title}</h3>
+            <button onClick={() => setIsOpen(false)}>
               <X className="w-6 h-6" />
             </button>
           </div>
 
-          {submitted ? (
-            <div className="p-6 text-center">
-              <div className="text-green-600 text-2xl mb-4">✓</div>
-              <p className="text-gray-700">{t.success}</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  {t.name}
-                </label>
+          {!submitted ? (
+            <form onSubmit={handleSubmit} className="p-6">
+              <div className="space-y-4">
                 <input
                   type="text"
-                  id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
+                  placeholder={t.name}
                   required
-                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
+                  className="w-full p-2 border border-gray-300 rounded-md"
                 />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  {t.email}
-                </label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  placeholder={t.email}
                   required
-                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
+                  className="w-full p-2 border border-gray-300 rounded-md"
                 />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="service"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  {t.service}
-                </label>
                 <select
-                  id="service"
                   name="service"
                   value={formData.service}
                   onChange={handleInputChange}
-                  required
-                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
+                  className="w-full p-2 border border-gray-300 rounded-md"
                 >
-                  <option value="">{t.service}</option>
+                  <option value="" disabled>
+                    {t.service}
+                  </option>
                   {availableServices.map((service) => (
                     <option key={service.value} value={service.value}>
                       {service.label}
                     </option>
                   ))}
                 </select>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  {t.message}
-                </label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  rows={4}
-                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-300 transition-all"
-                ></textarea>
+                  placeholder={t.message}
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-green-500 text-white py-2 rounded-md"
+                >
+                  {t.submit}
+                </button>
               </div>
-
-              <button
-                type="submit"
-                className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-all"
-              >
-                {t.submit}
-              </button>
             </form>
+          ) : (
+            <div className="p-6 text-center">
+              <p className="text-green-600 font-semibold">{t.success}</p>
+            </div>
           )}
         </div>
       )}

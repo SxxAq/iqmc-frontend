@@ -5,7 +5,7 @@ interface HeroProps {
   title: string;
   subtitle?: string;
   backgroundImage: string;
-  breadcrumbs: { name: string; href: stringstring }[];
+  breadcrumbs: { name: string; href: string }[];
 }
 
 const Hero: React.FC<HeroProps> = ({

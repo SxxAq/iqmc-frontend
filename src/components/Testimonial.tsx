@@ -71,7 +71,7 @@ const Testimonial: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5 }}
-            className="bg-white p-8 rounded-lg shadow-lg max-w-lg"
+            className="bg-white p-8 rounded-lg shadow-lg max-w-2xl"
           >
             <div className="text-red-600 text-4xl mb-4">
               <Quote />

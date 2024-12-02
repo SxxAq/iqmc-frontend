@@ -1,3 +1,4 @@
+import React from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 interface CountryContactProps {
@@ -19,7 +20,10 @@ const CountryContact: React.FC<CountryContactProps> = ({
 }) => {
   const { language } = useLanguage();
 
-  const translations = {
+  const translations: Record<
+    string,
+    { phone: string; email: string; address: string }
+  > = {
     en: {
       phone: "Phone",
       email: "Email",
@@ -47,7 +51,7 @@ const CountryContact: React.FC<CountryContactProps> = ({
     },
   };
 
-  const t = translations[language];
+  const t = translations[language] || translations.en; // Default to English if language is not found
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
