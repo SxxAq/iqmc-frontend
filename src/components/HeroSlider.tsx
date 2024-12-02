@@ -89,7 +89,7 @@ const HeroSlider: React.FC = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
           >
-            <div className="absolute inset-0 bg-black opacity-50" />
+            <div className="absolute inset-0 bg-black opacity-0" />
           </div>
           <div className="relative h-full flex items-center">
             <div className="container mx-auto px-4">
