@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Search, Globe } from "lucide-react";
 
 const navigation = [
-  { name: "Home", href: "#" },
-  { name: "About Us", href: "#" },
+  { name: "Home", to: "/" },
+  { name: "About Us", to: "/about" },
   {
     name: "Our Services",
-    href: "#",
+    to: "/services",
     dropdownItems: [
-      { name: "C-TPAT", href: "#c-tpat" },
-      { name: "Code Of Conduct", href: "#code-of-conduct" },
+      { name: "C-TPAT", to: "/c-tpat" },
+      { name: "Code Of Conduct", to: "/code-of-conduct" },
     ],
   },
-  { name: "Business Integrity", href: "#" },
-  { name: "Our Policies", href: "#" },
-  { name: "News", href: "#" },
-  { name: "Contact Us", href: "#" },
+  { name: "Business Integrity", to: "/business-integrity" },
+  { name: "Our Policies", to: "/policies" },
+  { name: "News", to: "/news" },
+  { name: "Contact Us", to: "/contact" },
 ];
 
 const Header: React.FC = () => {
@@ -38,26 +39,26 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img
               src="/logo.png"
               alt="IQMC GLOBAL ASSESSMENT"
               className="h-12"
             />
-          </a>
+          </Link>
 
           <nav className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
               <div key={item.name} className="relative group">
-                <a
-                  href={item.href}
+                <Link
+                  to={item.to}
                   className="text-gray-700 hover:text-yellow-500 py-2 flex items-center text-sm font-medium"
                 >
                   {item.name}
                   {item.dropdownItems && (
                     <ChevronDown className="ml-1 w-4 h-4" />
                   )}
-                </a>
+                </Link>
 
                 {item.dropdownItems && (
                   <motion.div
@@ -67,13 +68,13 @@ const Header: React.FC = () => {
                     className="absolute top-full left-0 bg-white py-2 min-w-[200px] rounded-md shadow-lg hidden group-hover:block"
                   >
                     {item.dropdownItems.map((dropdownItem) => (
-                      <a
+                      <Link
                         key={dropdownItem.name}
                         href={dropdownItem.href}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
                       >
                         {dropdownItem.name}
-                      </a>
+                      </Link>
                     ))}
                   </motion.div>
                 )}
@@ -82,21 +83,15 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <button
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="text-gray-700 hover:text-yellow-500 p-2"
-            >
-              <Search className="w-5 h-5" />
-            </button>
             <button className="text-gray-700 hover:text-yellow-500 p-2">
               <Globe className="w-5 h-5" />
             </button>
-            <a
-              href="#application"
+            <Link
+              to="/application"
               className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2 rounded-full text-sm font-medium transition duration-300"
             >
               Application Form
-            </a>
+            </Link>
           </div>
 
           <div className="lg:hidden flex items-center">
@@ -110,26 +105,6 @@ const Header: React.FC = () => {
         </div>
 
         <AnimatePresence>
-          {isSearchOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 right-0 bg-white shadow-md p-4"
-            >
-              <div className="container mx-auto">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-yellow-400"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          )}
-
           {isMenuOpen && (
             <motion.nav
               initial={{ opacity: 0, height: 0 }}
@@ -138,22 +113,22 @@ const Header: React.FC = () => {
               className="lg:hidden bg-white border-t"
             >
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="block px-4 py-3 text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
               <div className="p-4">
-                <a
-                  href="#application"
+                <Link
+                  to="/application"
                   className="block bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-3 rounded-full text-center font-medium transition duration-300"
                 >
                   Application Form
-                </a>
+                </Link>
               </div>
             </motion.nav>
           )}
