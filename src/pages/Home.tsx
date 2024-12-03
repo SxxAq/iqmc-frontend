@@ -8,6 +8,7 @@ import CtaSection from "../components/CtaSection";
 
 import LeaderShipTeam from "../components/LeaderShipTeam.tsx";
 import { motion } from "framer-motion";
+import ServiceOverview from "@/components/OurService.tsx";
 
 const Home: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const Home: React.FC = () => {
       {" "}
       <HeroSlider />
       <AboutSection />
+      <ServiceOverview />
       <StatsSection />
       <LeaderShipTeam />
       <ServicesSection />

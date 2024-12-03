@@ -1,20 +1,20 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, UserCircle } from "lucide-react";
 
 const LeadershipSection: React.FC = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-yellow-500 font-medium mb-2 block">
+          <div className="text-center inline-block px-4 py-1 rounded-full  bg-yellow-400 text-white mb-4">
             Our Team
-          </span>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
             Leadership Team
           </h2>
@@ -32,9 +32,13 @@ const LeadershipSection: React.FC = () => {
             className="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
             <div className="p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Managing Director
-              </h3>
+              <div className="flex items-center mb-4">
+                <UserCircle className="w-12 h-12 text-yellow-400 mr-4" />
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Managing Director
+                </h3>
+              </div>
+
               <p className="text-gray-600 leading-relaxed mb-6">
                 I am honored to extend a warm welcome to you on behalf of our
                 team at IQMC Global Assessment and IQMC INDIA Certification
@@ -60,9 +64,12 @@ const LeadershipSection: React.FC = () => {
             className="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
             <div className="p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Director
-              </h3>
+            <div className="flex items-center mb-4">
+                <UserCircle className="w-12 h-12 text-yellow-400 mr-4" />
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Director
+                </h3>
+              </div>
               <p className="text-gray-600 leading-relaxed mb-6">
                 As the Director of IQMC INDIA Certification Pvt Ltd & IQMC
                 Global Assessment, I am honoured to guide a team committed to

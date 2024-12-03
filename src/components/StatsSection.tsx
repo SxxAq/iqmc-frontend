@@ -22,7 +22,7 @@ const StatsSection: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: 0.2 }}
                 className="text-center group hover:-translate-y-1 transition-transform duration-300"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-yellow-100 mb-4 group-hover:bg-yellow-200 transition-colors duration-300">
