@@ -33,7 +33,7 @@ const AboutSection: React.FC = () => {
             <span className="inline-block px-4 py-1 rounded-full bg-yellow-400 text-white font-medium mb-4">
               About Us
             </span>
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-3xl font-extrabold text-gray-900 mb-4 tracking-tight">
               Elevating Social Compliance Standards
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
