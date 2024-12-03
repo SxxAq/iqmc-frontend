@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Search, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, Globe } from "lucide-react";
 
 const navigation = [
   { name: "Home", to: "/" },
@@ -23,7 +23,6 @@ const navigation = [
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -70,7 +69,7 @@ const Header: React.FC = () => {
                     {item.dropdownItems.map((dropdownItem) => (
                       <Link
                         key={dropdownItem.name}
-                        href={dropdownItem.href}
+                        to={dropdownItem.to}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
                       >
                         {dropdownItem.name}
@@ -115,7 +114,7 @@ const Header: React.FC = () => {
               {navigation.map((item) => (
                 <Link
                   key={item.name}
-                  to={item.href}
+                  to={item.to}
                   className="block px-4 py-3 text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
                   onClick={() => setIsMenuOpen(false)}
                 >
