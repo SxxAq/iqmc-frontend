@@ -2,28 +2,30 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Globe } from "lucide-react";
-
+import { useLanguage } from "../contexts/LanguageContext.tsx";
+import { useIntl } from "../i18n";
 const navigation = [
-  { name: "Home", to: "/" },
-  { name: "About Us", to: "/about" },
+  { name: "homeTitle", to: "/" },
+  { name: "aboutUsTitle", to: "/about" },
   {
-    name: "Our Services",
+    name: "ourServicesTitle",
     to: "/services",
     dropdownItems: [
-      { name: "C-TPAT", to: "/c-tpat" },
-      { name: "Code Of Conduct", to: "/code-of-conduct" },
+      { name: "cTpat", to: "/c-tpat" },
+      { name: "codeOfConduct", to: "/code-of-conduct" },
     ],
   },
-  { name: "Business Integrity", to: "/business-integrity" },
-  { name: "Our Policies", to: "/policies" },
-  { name: "News", to: "/news" },
-  { name: "Contact Us", to: "/contact" },
+  { name: "businessIntegrityTitle", to: "/business-integrity" },
+  { name: "ourPoliciesTitle", to: "/policies" },
+  { name: "newsTitle", to: "/news" },
+  { name: "contactUsTitle", to: "/contact" },
 ];
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const { languages, language, setLanguage } = useLanguage();
+  const intl = useIntl();
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -53,7 +55,7 @@ const Header: React.FC = () => {
                   to={item.to}
                   className="text-gray-700 hover:text-yellow-500 py-2 flex items-center text-sm font-medium"
                 >
-                  {item.name}
+                  {intl.formatMessage({ id: item.name })}{" "}
                   {item.dropdownItems && (
                     <ChevronDown className="ml-1 w-4 h-4" />
                   )}
@@ -72,7 +74,7 @@ const Header: React.FC = () => {
                         to={dropdownItem.to}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
                       >
-                        {dropdownItem.name}
+                        {intl.formatMessage({ id: dropdownItem.name })}{" "}
                       </Link>
                     ))}
                   </motion.div>
@@ -82,14 +84,30 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <button className="text-gray-700 hover:text-yellow-500 p-2">
-              <Globe className="w-5 h-5" />
-            </button>
+            <div className="relative group">
+              <button className="text-gray-700 hover:text-yellow-500 p-2 flex items-center">
+                <Globe className="w-5 h-5" />
+                <span className="ml-2">{languages[language].flag}</span>
+                <ChevronDown className="ml-2 w-4 h-4" />
+              </button>
+              <div className="absolute top-full right-0 bg-white py-2 rounded-md shadow-lg hidden group-hover:block">
+                {Object.keys(languages).map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => setLanguage(lang)}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 flex items-center"
+                  >
+                    <span className="mr-2">{languages[lang].flag}</span>
+                    {languages[lang].name}
+                  </button>
+                ))}
+              </div>
+            </div>{" "}
             <Link
               to="/application"
               className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2 rounded-full text-sm font-medium transition duration-300"
             >
-              Application Form
+              {intl.formatMessage({ id: "applicationForm" })}{" "}
             </Link>
           </div>
 
@@ -118,7 +136,7 @@ const Header: React.FC = () => {
                   className="block px-4 py-3 text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.name}
+                  {intl.formatMessage({ id: item.name })}{" "}
                 </Link>
               ))}
               <div className="p-4">
@@ -126,7 +144,7 @@ const Header: React.FC = () => {
                   to="/application"
                   className="block bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-3 rounded-full text-center font-medium transition duration-300"
                 >
-                  Application Form
+                  {intl.formatMessage({ id: "applicationForm" })}{" "}
                 </Link>
               </div>
             </motion.nav>
