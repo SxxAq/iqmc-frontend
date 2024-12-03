@@ -25,7 +25,7 @@ const services = [
 
 const ServicesSection: React.FC = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-5 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
