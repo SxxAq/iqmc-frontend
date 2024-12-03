@@ -8,7 +8,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OurPolicies from "./pages/OurPolicies.tsx";
 import LanguageProvider from "./contexts/LanguageContext";
-import ChatBox from "./components/ChatBox";
+
 import QuoteRequest from "./components/QuoteRequest";
 import News from "./pages/News.tsx";
 import BusinessIntegrity from "./pages/BusinessIntegrity.tsx";
@@ -34,7 +34,7 @@ function App() {
             </Routes>
           </main>
           <Footer />
-          <ChatBox />
+
           <QuoteRequest />
         </div>
       </Router>
