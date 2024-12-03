@@ -28,14 +28,14 @@ const ServicesSection: React.FC = () => {
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-yellow-500 font-medium mb-2 block">
+          <div className="text-center inline-block px-4 py-1 rounded-full  bg-yellow-400 text-white mb-4">
             Our Services
-          </span>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
             Expertise for Every Industry
           </h2>
@@ -47,13 +47,13 @@ const ServicesSection: React.FC = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: 0.1 }}
               className="group bg-gray-50 hover:bg-white hover:shadow-xl rounded-2xl p-8 transition-all duration-300 relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-yellow-400 transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300" />

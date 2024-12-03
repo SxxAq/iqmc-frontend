@@ -1,23 +1,44 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import image from '../../public/heroImage.jpg'
 
 const HeroSection: React.FC = () => {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/slider-11-2.jpg"
-          alt="Hero background"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent"></div>
-      </div>
+  const textVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        duration: 0.8
+      }
+    }
+  };
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl">
+  const imageVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        duration: 0.8
+      }
+    }
+  };
+
+  return (
+    <section className="relative min-h-screen py-[14%] md:py-0 flex items-center justify-center bg-gray-50 px-[10%] overflow-hidden">
+      <div className="container mx-auto px-4 grid md:grid-cols-2 items-center gap-8">
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={textVariants}
+          className="text-center md:text-left"
+        >
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -39,7 +60,7 @@ const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-wrap gap-4"
+            className="flex justify-center md:justify-start flex-wrap gap-2"
           >
             <a
               href="#contact"
@@ -55,14 +76,27 @@ const HeroSection: React.FC = () => {
               Learn More
             </a>
           </motion.div>
-        </div>
+        </motion.div>
+        
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={imageVariants}
+          className="flex items-center justify-center"
+        >
+          <img 
+            src={image} 
+            alt="Social Compliance Auditing" 
+            className="max-w-full h-auto rounded-lg shadow-lg"
+          />
+        </motion.div>
       </div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-2 md:bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <div className="w-6 h-10 border-2 border-yellow-400 rounded-full p-1">
           <motion.div

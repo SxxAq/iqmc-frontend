@@ -43,9 +43,9 @@ const TestimonialSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-yellow-500 font-medium mb-2 block">
+          <div className="text-center inline-block px-4 py-1 rounded-full  bg-yellow-400 text-white mb-4">
             Testimonials
-          </span>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             What Our Clients Say
           </h2>
