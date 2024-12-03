@@ -1,4 +1,5 @@
-import { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, ReactNode } from "react";
+
 interface LanguageContextType {
   language: string;
   setLanguage: React.Dispatch<React.SetStateAction<string>>;

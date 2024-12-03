@@ -1,8 +1,9 @@
 import { createIntl, createIntlCache, IntlShape } from "react-intl";
-import { useLanguage } from "./contexts/LanguageContext.tsx";
+import { useLanguage } from "./contexts/LanguageContext";
+
 const cache = createIntlCache();
 
-const messages = {
+const messages: { [key: string]: { [key: string]: string } } = {
   en: {
     homeTitle: "Home",
     aboutUsTitle: "About Us",
