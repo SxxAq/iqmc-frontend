@@ -31,7 +31,7 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen py-[14%] md:py-0 flex items-center justify-center bg-gray-50 px-[10%] overflow-hidden">
+    <section className="relative min-h-screen py-[20%] md:py-0 flex items-center justify-center bg-gray-50 px-[10%] overflow-hidden">
       <div className="container mx-auto px-4 grid md:grid-cols-2 items-center gap-8">
         <motion.div 
           initial="hidden"
