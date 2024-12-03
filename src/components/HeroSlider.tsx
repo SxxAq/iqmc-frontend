@@ -1,173 +1,85 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-interface SlideContent {
-  title: string;
-  subtitle: string;
-  description: string;
-  image: string;
-  ctaText: string;
-  ctaLink: string;
-}
-
-const slides: SlideContent[] = [
-  {
-    title: "C-TPAT, COC",
-    subtitle: "Social Compliance Auditing",
-    description:
-      "Ethical Auditing and System Certifications for your business success",
-    image: "/slider-11-1.jpg",
-    ctaText: "Contact Us",
-    ctaLink: "/contact",
-  },
-  {
-    title: "Guiding Growth",
-    subtitle: "Driving Success",
-    description:
-      "At the core of our audit services is the power of informed decision-making. Our independent and comprehensive audits empower your organization.",
-    image: "/slider-11-2.jpg",
-    ctaText: "Our Services",
-    ctaLink: "/services",
-  },
-];
-
-const HeroSlider: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [direction, setDirection] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const handlePrevSlide = () => {
-    setDirection(-1);
-    setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + slides.length) % slides.length,
-    );
-  };
-
-  const handleNextSlide = () => {
-    setDirection(1);
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-  };
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    }),
-  };
-
+const HeroSection: React.FC = () => {
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={currentSlide}
-          custom={direction}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ type: "tween", duration: 0.5 }}
-          className="absolute inset-0"
-        >
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
-          >
-            <div className="absolute inset-0 bg-black opacity-0" />
-          </div>
-          <div className="relative h-full flex items-center">
-            <div className="container mx-auto px-4">
-              <div className="max-w-3xl">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-sm md:text-base text-red-500 font-semibold mb-4"
-                >
-                  {slides[currentSlide].subtitle}
-                </motion.h2>
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-4xl md:text-6xl font-bold text-white mb-6"
-                >
-                  {slides[currentSlide].title}
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-lg md:text-xl text-gray-200 mb-8"
-                >
-                  {slides[currentSlide].description}
-                </motion.p>
-                <motion.a
-                  href={slides[currentSlide].ctaLink}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="inline-block bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-md transition duration-300"
-                >
-                  {slides[currentSlide].ctaText}
-                </motion.a>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-
-      <div className="absolute inset-0 flex items-center justify-between p-4">
-        <button
-          onClick={handlePrevSlide}
-          className="p-2 rounded-full bg-black/30 text-white hover:bg-black/50 transition duration-300"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <button
-          onClick={handleNextSlide}
-          className="p-2 rounded-full bg-black/30 text-white hover:bg-black/50 transition duration-300"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50">
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/slider-11-2.jpg"
+          alt="Hero background"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent"></div>
       </div>
 
-      <div className="absolute bottom-8 left-0 right-0">
-        <div className="flex justify-center gap-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? "bg-red-600 w-8"
-                  : "bg-white/50 hover:bg-white/75"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-3xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-6xl font-bold mb-6 text-gray-900"
+          >
+            C-TPAT, COC, <br />
+            <span className="text-yellow-500">Social Compliance Auditing</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-xl md:text-2xl mb-8 text-gray-600"
+          >
+            Ethical Auditing and System Certifications for your business success
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap gap-4"
+          >
+            <a
+              href="#contact"
+              className="inline-flex items-center bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-8 py-3 rounded-full transition duration-300 group"
+            >
+              Contact Us
+              <ArrowRight className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a
+              href="#learn-more"
+              className="inline-flex items-center bg-white hover:bg-gray-50 text-gray-900 px-8 py-3 rounded-full border border-gray-200 transition duration-300"
+            >
+              Learn More
+            </a>
+          </motion.div>
         </div>
       </div>
-    </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <div className="w-6 h-10 border-2 border-yellow-400 rounded-full p-1">
+          <motion.div
+            animate={{
+              y: [0, 12, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+            className="w-2 h-2 bg-yellow-400 rounded-full"
+          />
+        </div>
+      </motion.div>
+    </section>
   );
 };
 
-export default HeroSlider;
+export default HeroSection;

@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 const AboutSection: React.FC = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -13,7 +13,10 @@ const AboutSection: React.FC = () => {
           className="grid md:grid-cols-2 gap-12 items-center"
         >
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+            <span className="text-yellow-500 font-medium mb-2 block">
+              About Us
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
               Welcome to IQMC INDIA Certification Pvt Ltd & IQMC Global
               Assessment
             </h2>
@@ -33,9 +36,10 @@ const AboutSection: React.FC = () => {
               href="/about"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center bg-red-600 text-white px-8 py-3 rounded-md hover:bg-red-700 transition duration-300 shadow-lg"
+              className="inline-flex items-center bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-8 py-3 rounded-full transition duration-300 group"
             >
-              Learn More <ArrowRight className="ml-2 w-4 h-4" />
+              Learn More{" "}
+              <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </motion.a>
           </div>
           <motion.div
@@ -45,11 +49,11 @@ const AboutSection: React.FC = () => {
             className="relative"
           >
             <img
-              src="/about-12.jpg"
+              src="/about-image.jpg"
               alt="About IQMC Global Assessment"
-              className="rounded-xl shadow-2xl"
+              className="rounded-2xl shadow-2xl"
             />
-            <div className="absolute -bottom-6 -left-6 bg-red-600 text-white p-6 rounded-xl shadow-lg max-w-xs">
+            <div className="absolute -bottom-6 -left-6 bg-yellow-400 text-gray-900 p-6 rounded-xl shadow-lg max-w-xs">
               <p className="text-lg font-semibold">
                 Committed to Excellence in Social Compliance Auditing
               </p>

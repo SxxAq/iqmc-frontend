@@ -1,56 +1,31 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Globe } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion"; // Import framer-motion
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronDown, Search, Globe } from "lucide-react";
 
-interface NavItem {
-  name: string;
-  href: string;
-  dropdownItems?: { name: string; href: string }[];
-}
-
-interface Language {
-  code: string;
-  name: string;
-  flag: string;
-}
-
-const languages: Language[] = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "es", name: "Español", flag: "🇪🇸" },
-  { code: "zh", name: "中文", flag: "🇨🇳" },
-  { code: "ja", name: "日本語", flag: "🇯🇵" },
-];
-
-const navigation: NavItem[] = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
+const navigation = [
+  { name: "Home", href: "#" },
+  { name: "About Us", href: "#" },
   {
     name: "Our Services",
-    href: "/services",
+    href: "#",
     dropdownItems: [
-      { name: "C-TPAT", href: "/services/c-tpat" },
-      { name: "Code Of Conduct", href: "/services/code-of-conduct" },
+      { name: "C-TPAT", href: "#c-tpat" },
+      { name: "Code Of Conduct", href: "#code-of-conduct" },
     ],
   },
-  { name: "Business Integrity", href: "/business-integrity" },
-  { name: "Our Policies", href: "/policies" },
-  { name: "News", href: "/news" },
-  { name: "Contact Us", href: "/contact" },
+  { name: "Business Integrity", href: "#" },
+  { name: "Our Policies", href: "#" },
+  { name: "News", href: "#" },
+  { name: "Contact Us", href: "#" },
 ];
 
-const Header = () => {
+const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState(languages[0]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -58,200 +33,129 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/80 backdrop-blur-md" : "bg-transparent"
+        isScrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center">
+          <a href="#" className="flex items-center">
             <img
               src="/logo.png"
               alt="IQMC GLOBAL ASSESSMENT"
               className="h-12"
             />
-          </Link>
+          </a>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
-              <div
-                key={item.name}
-                className="relative group"
-                onMouseEnter={() => setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <Link
-                  to={item.href}
-                  className="text-white hover:text-red-500 py-2"
+              <div key={item.name} className="relative group">
+                <a
+                  href={item.href}
+                  className="text-gray-700 hover:text-yellow-500 py-2 flex items-center text-sm font-medium"
                 >
                   {item.name}
-                </Link>
+                  {item.dropdownItems && (
+                    <ChevronDown className="ml-1 w-4 h-4" />
+                  )}
+                </a>
 
-                {item.dropdownItems && activeDropdown === item.name && (
+                {item.dropdownItems && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-full left-0 bg-black/90 backdrop-blur-md py-2 min-w-[200px] shadow-lg rounded-md"
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-0 bg-white py-2 min-w-[200px] rounded-md shadow-lg hidden group-hover:block"
                   >
                     {item.dropdownItems.map((dropdownItem) => (
-                      <Link
+                      <a
                         key={dropdownItem.name}
-                        to={dropdownItem.href}
-                        className="block px-4 py-2 text-white hover:text-red-500 hover:bg-white/10"
+                        href={dropdownItem.href}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
                       >
                         {dropdownItem.name}
-                      </Link>
+                      </a>
                     ))}
                   </motion.div>
                 )}
               </div>
             ))}
-
-            {/* Language Selector */}
-            <div className="relative">
-              <button
-                onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-                className="flex items-center space-x-2 text-white hover:text-red-500"
-              >
-                <Globe className="w-5 h-5" />
-                <span>{currentLanguage.flag}</span>
-              </button>
-
-              <AnimatePresence>
-                {isLanguageOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-full right-0 mt-2 bg-black/90 backdrop-blur-md py-2 min-w-[160px] rounded-md shadow-lg"
-                  >
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          setCurrentLanguage(lang);
-                          setIsLanguageOpen(false);
-                        }}
-                        className="w-full px-4 py-2 text-left text-white hover:text-red-500 hover:bg-white/10 flex items-center space-x-2"
-                      >
-                        <span>{lang.flag}</span>
-                        <span>{lang.name}</span>
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <Link
-              to="/application"
-              className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-md transition duration-300"
-            >
-              Application Form
-            </Link>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             <button
-              onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-              className="text-white p-2"
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="text-gray-700 hover:text-yellow-500 p-2"
             >
+              <Search className="w-5 h-5" />
+            </button>
+            <button className="text-gray-700 hover:text-yellow-500 p-2">
               <Globe className="w-5 h-5" />
             </button>
-            <button
-              className="text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            <a
+              href="#application"
+              className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2 rounded-full text-sm font-medium transition duration-300"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isMenuOpen ? (
-                  <path d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              Application Form
+            </a>
+          </div>
+
+          <div className="lg:hidden flex items-center">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-700 p-2"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
+          {isSearchOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute top-full left-0 right-0 bg-white shadow-md p-4"
+            >
+              <div className="container mx-auto">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-yellow-400"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {isMenuOpen && (
             <motion.nav
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", duration: 0.3 }}
-              className="lg:hidden p-4 bg-black/90 backdrop-blur-lg rounded-lg"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden bg-white border-t"
             >
               {navigation.map((item) => (
-                <div key={item.name}>
-                  <Link
-                    to={item.href}
-                    className="block py-2 text-white hover:text-red-500"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                  {item.dropdownItems && (
-                    <div className="pl-4">
-                      {item.dropdownItems.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.name}
-                          to={dropdownItem.href}
-                          className="block py-2 text-gray-300 hover:text-red-500"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {dropdownItem.name}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-              <Link
-                to="/application"
-                className="block mt-4 bg-red-600 hover:bg-red-700 px-6 p-2 text-center rounded-md transition duration-300"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Application Form
-              </Link>
-            </motion.nav>
-          )}
-        </AnimatePresence>
-
-        {/* Mobile Language Selector */}
-        <AnimatePresence>
-          {isLanguageOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="lg:hidden py-4 bg-black/90 backdrop-blur-md"
-            >
-              {languages.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => {
-                    setCurrentLanguage(lang);
-                    setIsLanguageOpen(false);
-                  }}
-                  className="w-full px-4 py-2 text-left text-white hover:text-red-500 flex items-center space-x-2"
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block px-4 py-3 text-gray-700 hover:bg-yellow-50 hover:text-yellow-600"
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  <span>{lang.flag}</span>
-                  <span>{lang.name}</span>
-                </button>
+                  {item.name}
+                </a>
               ))}
-            </motion.div>
+              <div className="p-4">
+                <a
+                  href="#application"
+                  className="block bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-3 rounded-full text-center font-medium transition duration-300"
+                >
+                  Application Form
+                </a>
+              </div>
+            </motion.nav>
           )}
         </AnimatePresence>
       </div>
